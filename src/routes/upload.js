@@ -1,23 +1,33 @@
 const express = require("express");
 const upload = require("../config/multer");
+const crypto = require("crypto");
 
 const router = express.Router();
 
-// upload endpoint
+// In-memory store: downloadId -> filename
+// (Later you can replace this with DB)
+const fileStore = global.fileStore || new Map();
+global.fileStore = fileStore;
+
+// Upload endpoint
 router.post("/", upload.single("file"), (req, res) => {
 
     if (!req.file) {
         return res.status(400).json({ error: "No file uploaded" });
     }
 
-    const filename = req.file.filename;
+    // Generate random download ID
+    const downloadId = crypto.randomUUID();
 
-    // ✅ FIX: use environment-based base URL
-    const BASE_URL = process.env.BASE_URL || "http://localhost:3000";
+    // Store mapping
+    fileStore.set(downloadId, req.file.filename);
+
+    // Dynamically get base URL (works on Render & local)
+    const baseUrl = `${req.protocol}://${req.get("host")}`;
 
     res.json({
         message: "File uploaded successfully",
-        downloadLink: `${BASE_URL}/file/${filename}`
+        downloadLink: `${baseUrl}/download/${downloadId}`
     });
 });
 
