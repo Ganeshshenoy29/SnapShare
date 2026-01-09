@@ -2,8 +2,15 @@ const express = require("express");
 
 const router = express.Router();
 
-router.get("/:filename", (req, res) => {
-    const filename = req.params.filename;
+router.get("/:id", (req, res) => {
+
+    const id = req.params.id;
+const filename = global.fileStore.get(id);
+
+if (!filename) {
+    return res.status(404).send("Invalid or expired link");
+}
+
 
     res.send(`
         <!DOCTYPE html>
@@ -232,7 +239,7 @@ router.get("/:filename", (req, res) => {
                     <div class="filename" id="filename">${filename}</div>
                 </div>
 
-                <a href="/download/${filename}" class="btn-download" id="downloadBtn">
+                <a href="/download/${id}" class="btn-download">
                     <span class="download-icon">⬇️</span>
                     Download File
                 </a>
