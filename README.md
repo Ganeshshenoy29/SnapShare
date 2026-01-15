@@ -4,17 +4,17 @@ Users can upload files and instantly receive a shareable download link accessibl
 
 🚀 Features
 
-  📤 Upload files easily through the web interface
+    📤 Upload files easily through the web interface
 
-  🔗 Automatically generates a public download link
+    🔗 Automatically generates a public download link
 
-  📥 Download files using the generated link
+    📥 Download files using the generated link
   
-  🗂️ Stores uploaded files securely on the server
+    🗂️ Stores uploaded files securely on the server
   
-  ⚡ Fast and lightweight backend
+    ⚡ Fast and lightweight backend
   
-  🌐 Works both locally and in production (Render deployment)
+    🌐 Works both locally and in production (Render deployment)
 
 🛠️ Tech Stack
 
